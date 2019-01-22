@@ -1,30 +1,32 @@
 <h1>Listing articles</h1>
  
 <table>
-  <tr>
-    <th>Title</th>
-    <th>Text</th>
-    <thcolspan="3"></th>
-  </tr>
- 
-  <% @articles.each do |article| %>
-    <tr>
+
+  <% @articles.each do |article|   %>
+    
+      <th>Title</th>
       <td><%= article.title %></td>
+      <th>Text</th>
       <td><%= article.text %></td>
+      
       <td><%= link_to 'Show', article_path(article) %></td>
       <td><%= link_to 'Edit', edit_article_path(article) %></td>
       <td><%= link_to 'Destroy', article_path(article),
               method: :delete,
               data: { confirm: 'Are you sure?' } %></td>
-    </tr>
+      <% article.comments.each do |c| %>
+        <th> Comment:</td>
+        <td><%= c.commenter %></td>
+        <th> body:</td>
+        <td><%= c.body %></td>
+      <% end %>
+      <tr>
+
+      </tr>
   <% end %>
   <%= link_to 'New article', new_article_path %>
 
 </table>
-<h1> TEXT  1</h1>
-<h1> TEXT  2</h1>
-<h1> jadlkajlksfjlkasjfS </h1>
-<%= check_box_tag(:pet_dog) %>
-<%= label_tag(:pet_dog, "I own a dog") %>
-<%= check_box_tag(:pet_cat) %>
-<%= label_tag(:pet_cat, "I own a cat") %>
+  <div class="text-center">
+  <%= will_paginate @notices, renderer: BootstrapPagination::Rails %>
+  </div>
